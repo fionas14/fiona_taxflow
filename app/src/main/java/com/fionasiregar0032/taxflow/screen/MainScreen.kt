@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,12 +28,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.fionasiregar0032.taxflow.R
 import com.fionasiregar0032.taxflow.ui.theme.TaxflowTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     Scaffold (
         containerColor = Color(0xFFFFF5E1),
         topBar = {
@@ -47,12 +49,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
             )
         }
     ) { innerPadding ->
-        ScreenContent(Modifier.padding(innerPadding))
+        ScreenContent(Modifier.padding(innerPadding), navController)
     }
 }
 
 @Composable
-fun ScreenContent(modifier: Modifier = Modifier) {
+fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostController) {
 
     Column(
         modifier = modifier
@@ -65,7 +67,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
 
         Text(
             text = "Selamat datang di TaxFlow! ",
-            fontSize = 32.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
@@ -93,6 +95,14 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             text = "Hitung pajak dengan mudah dan cepat.",
             textAlign = TextAlign.Center
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Button(onClick = {
+            navController.navigate("Second")
+        }) {
+            Text(text = "next")
+        }
     }
 }
 
