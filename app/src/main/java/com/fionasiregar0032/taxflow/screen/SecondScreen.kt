@@ -1,5 +1,6 @@
 package com.fionasiregar0032.taxflow.screen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,8 +32,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.fionasiregar0032.taxflow.ui.theme.TaxflowTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -257,12 +261,22 @@ fun SecondScreen(navController: NavHostController) {
 
                     Button(
                         onClick = {
-                            navController.popBackStack()
+                            nama = ""
+                            jumlahTanggungan = ""
+                            totalPenghasilan = ""
+                            iuranJHT =""
+                            iuranBPJS = ""
+                            iuranZakat = ""
+                            selectedPekerjaan = pekerjaanOptions[0]
+                            penghasilanNeto = 0.0
+                            penghasilanKenaPajak = 0.0
+                            pajak = 0.0
+                            hitung = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))
                     ) {
-                        Text("kembali")
+                        Text("Reset")
                     }
                 }
             }
@@ -289,5 +303,16 @@ fun SecondScreen(navController: NavHostController) {
         return pajak
     }
 
+
+@Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+fun SecondScreenPreview() {
+    TaxflowTheme {
+        val navController = rememberNavController()
+        SecondScreen(navController)
+
+    }
+}
 
 
