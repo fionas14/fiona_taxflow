@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.fionasiregar0032.taxflow.R
 import com.fionasiregar0032.taxflow.ui.theme.TaxflowTheme
 
@@ -40,7 +42,11 @@ fun MainScreen(navController: NavHostController, modifier: Modifier = Modifier) 
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Tax Flow")
+                    Text(
+                        text = "Tax Flow",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
                 },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = Color(0xFF90EE90),
@@ -84,8 +90,10 @@ fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostControlle
                 .clip(RoundedCornerShape(12.dp))
         )
 
+        Spacer(modifier = Modifier.height(25.dp))
+
         Text(
-            text = "Mari menghitung Pajak.",
+            text = "Mari menghitung Pajak!",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
@@ -100,7 +108,11 @@ fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostControlle
 
         Button(onClick = {
             navController.navigate("Second")
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF90EE90),
+            )
+            ) {
             Text(text = "next")
         }
     }
@@ -111,6 +123,8 @@ fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostControlle
 @Composable
 fun GreetingPreview() {
     TaxflowTheme {
+        val navController = rememberNavController()
+        MainScreen(navController)
 
     }
 }

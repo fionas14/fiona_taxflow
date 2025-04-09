@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController, startDestination = "main") {
                     composable("main") { MainScreen(navController) }
-                    composable("second") { SecondScreen() }
+                    composable("second") { SecondScreen(navController) }
                 }
             }
         }
