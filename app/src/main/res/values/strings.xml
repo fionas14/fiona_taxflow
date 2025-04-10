@@ -21,4 +21,9 @@
     <string name="penghasilan_kena_pajak">Penghasilan Keena Pajak: Rp %1$d</string>
     <string name="pajak">Pajak: Rp %1$d</string>
 
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
+    <string name="taxflow">Tax Flow merupakan sebuah aplikasi Android untuk menghitung pajak PPN dan PPh.
+    Sehingga memudahkan kita untuk melakukan perhitungan Pajak. Di dalam PPN terdapat persenan yang bisa
+        di input manual, dan di dalam perhitungan PPh terdapat tunjangan, input pendapatan, status pekerjaan, dan tanggungan. </string>
+    <string name="balik">Kembali</string>
 </resources>

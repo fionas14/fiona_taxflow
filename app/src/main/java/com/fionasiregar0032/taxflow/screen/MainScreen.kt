@@ -10,14 +10,23 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,7 +47,9 @@ import com.fionasiregar0032.taxflow.ui.theme.TaxflowTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavHostController, modifier: Modifier = Modifier) {
-    Scaffold (
+    var expanded by remember { mutableStateOf(false) }
+
+    Scaffold(
         containerColor = Color(0xFFFFF5E1),
         topBar = {
             TopAppBar(
@@ -48,6 +59,36 @@ fun MainScreen(navController: NavHostController, modifier: Modifier = Modifier) 
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp
                     )
+                },
+                actions = {
+                    // Overflow menu icon
+                    androidx.compose.material3.IconButton(onClick = { expanded = true }) {
+                        androidx.compose.material3.Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = "Menu"
+                        )
+                    }
+
+                    // Dropdown menu
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Tentang Aplikasi") },
+                            onClick = {
+                                expanded = false
+                                navController.navigate(Screen.About.route)
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Pengaturan") },
+                            onClick = {
+                                expanded = false
+                                navController.navigate(Screen.Settings.route)
+                            }
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = Color(0xFF90EE90),
@@ -107,13 +148,14 @@ fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostControlle
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(onClick = {
-            navController.navigate(Screen.Second.route)
-        },
+        Button(
+            onClick = {
+                navController.navigate(Screen.Second.route)
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF90EE90),
             )
-            ) {
+        ) {
             Text(text = "next")
         }
     }
