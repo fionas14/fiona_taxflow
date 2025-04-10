@@ -51,7 +51,8 @@ fun SettingScreen(navController: NavHostController,
                         )
                     }
                 },
-                title = { Text("Pengaturan") },
+                title = { Text("Pengaturan")
+                },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = Color(0xFF90EE90),
                     titleContentColor = Color.Black
@@ -76,15 +77,7 @@ fun SettingScreen(navController: NavHostController,
                     onToggleTheme()}
                 )
             }
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Notifikasi", modifier = Modifier.weight(1f))
-                Switch(
-                    checked = isNotificationEnabled,
-                    onCheckedChange = { isNotificationEnabled = it }
-                )
-            }
         }
-
     }
 }
+
