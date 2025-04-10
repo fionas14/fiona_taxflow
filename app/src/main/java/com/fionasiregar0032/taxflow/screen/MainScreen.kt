@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.fionasiregar0032.taxflow.R
+import com.fionasiregar0032.taxflow.navigation.Screen
 import com.fionasiregar0032.taxflow.ui.theme.TaxflowTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -107,7 +108,7 @@ fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostControlle
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(onClick = {
-            navController.navigate("Second")
+            navController.navigate(Screen.Second.route)
         },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF90EE90),

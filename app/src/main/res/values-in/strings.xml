@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">taxflow</string>
+    <string name="kembali">Kembali</string>
+    <string name="reset">Reset</string>
+    <string name="hitung">Hitung</string>
+    <string name="jenis_pajak">Jenis Pajak</string>
+    <string name="pilih_jenis_pajak">Pilih Jenis Pajak</string>
+    <string name="masukkan_harga">Masukkan Harga</string>
+    <string name="harga">Harga(RP)</string>
+    <string name="pilih_persentase_ppn">Masukkan Persentase PPN (%)</string>
+    <string name="total_ppn">Total PPN: Rp %1$d</string>
+    <string name="jumlah_tanggungan">Jumlah Tanggungan</string>
+    <string name="total_penghasilan">Total Penghasilan</string>
+    <string name="iuran_jht">Iuran JHT (2%)</string>
+    <string name="iuran_bpjs">Iuran BPJS (1%)</string>
+    <string name="iuran_zakat">Iuran Zakat (1%)</string>
+    <string name="status">Status</string>
+    <string name="pilih_pekerjaan">Pilih Pekerjaan</string>
+
+    <string name="penghasilan_neto">Penghasilan Neto: Rp %1$d</string>
+    <string name="penghasilan_kena_pajak">Penghasilan Keena Pajak: Rp %1$d</string>
+    <string name="pajak">Pajak: Rp %1$d</string>
 </resources>
