@@ -37,7 +37,6 @@ fun SettingScreen(navController: NavHostController,
                   onToggleTheme: () -> Unit
                   ) {
     var isDarkThemeEnabled by remember { mutableStateOf(false) }
-    var isNotificationEnabled by remember { mutableStateOf(true) }
 
     Scaffold(
         topBar = {
