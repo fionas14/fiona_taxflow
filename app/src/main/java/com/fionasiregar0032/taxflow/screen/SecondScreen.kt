@@ -29,6 +29,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,8 +41,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.fionasiregar0032.taxflow.R
@@ -60,8 +63,7 @@ fun SecondScreen(navController: NavHostController) {
     var selectedPPN by remember { mutableStateOf("11%") }
     var ppnLainnya by remember { mutableStateOf("") }
     var inputHarga by remember { mutableStateOf("") }
-    var totalPPN by remember { mutableStateOf(0.0) }
-    val inputPersen by remember { mutableStateOf("") }
+    var totalPPN by remember { mutableDoubleStateOf(0.0) }
 
     var jumlahTanggungan by remember { mutableStateOf("") }
     var totalPenghasilan by remember { mutableStateOf("") }
@@ -73,9 +75,9 @@ fun SecondScreen(navController: NavHostController) {
     var selectedPekerjaan by remember { mutableStateOf(pekerjaanOptions[0]) }
     var pekerjanExpanded by remember { mutableStateOf(false) }
 
-    var penghasilanNeto by remember { mutableStateOf(0.0) }
-    var penghasilanKenaPajak by remember { mutableStateOf(0.0) }
-    var pajak by remember { mutableStateOf(0.0) }
+    var penghasilanNeto by remember { mutableDoubleStateOf(0.0) }
+    var penghasilanKenaPajak by remember { mutableDoubleStateOf(0.0) }
+    var pajak by remember { mutableDoubleStateOf(0.0) }
 
 
     Scaffold(
@@ -105,6 +107,13 @@ fun SecondScreen(navController: NavHostController) {
         ) {
 
             Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Mari menghitung Pajak!",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
 
             if (selectOption == null) {
                 Image(
@@ -224,7 +233,8 @@ fun SecondScreen(navController: NavHostController) {
 
                     Button(
                         onClick = {
-                            navController.popBackStack()
+                            selectOption = null
+                            hitung = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))// Hijau
@@ -380,7 +390,8 @@ fun SecondScreen(navController: NavHostController) {
 
                     Button(
                         onClick = {
-                            navController.popBackStack()
+                            selectOption = null
+                            hitung = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))// Hijau
@@ -396,7 +407,7 @@ fun SecondScreen(navController: NavHostController) {
         var sisa = pkp
         var pajak = 0.0
 
-        var lapisan = listOf(
+        val lapisan = listOf(
             60_000_000.0 to 0.05,
             190_000_000.0 to 0.15,
             250_000_000.0 to 0.25,

@@ -17,7 +17,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -46,7 +45,7 @@ import com.fionasiregar0032.taxflow.ui.theme.TaxflowTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController, modifier: Modifier = Modifier) {
+fun MainScreen(navController: NavHostController) {
     var expanded by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -120,6 +119,12 @@ fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostControlle
             textAlign = TextAlign.Center
         )
 
+        Text(
+            text = "Hitung pajak dengan mudah dan cepat.",
+            textAlign = TextAlign.Center
+        )
+
+
         Spacer(modifier = Modifier.height(32.dp))
 
         Image(
@@ -127,23 +132,9 @@ fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostControlle
             contentDescription = "Ilustrasi Pajak",
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .height(250.dp)
+                .height(350.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
-        )
-
-        Spacer(modifier = Modifier.height(25.dp))
-
-        Text(
-            text = "Mari menghitung Pajak!",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-
-        Text(
-            text = "Hitung pajak dengan mudah dan cepat.",
-            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(24.dp))
