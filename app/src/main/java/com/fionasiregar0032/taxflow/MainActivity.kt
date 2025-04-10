@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.fionasiregar0032.taxflow.navigation.NavGraph
 import com.fionasiregar0032.taxflow.screen.MainScreen
 import com.fionasiregar0032.taxflow.screen.SecondScreen
 import com.fionasiregar0032.taxflow.ui.theme.TaxflowTheme
@@ -18,9 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TaxflowTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "main") {
-                    composable("main") { MainScreen(navController) }
-                    composable("second") { SecondScreen(navController) }
+                NavGraph(navController = navController)
                 }
             }
         }
