@@ -60,7 +60,6 @@ fun MainScreen(navController: NavHostController) {
                     )
                 },
                 actions = {
-                    // Overflow menu icon
                     androidx.compose.material3.IconButton(onClick = { expanded = true }) {
                         androidx.compose.material3.Icon(
                             imageVector = Icons.Default.MoreVert,
@@ -68,7 +67,6 @@ fun MainScreen(navController: NavHostController) {
                         )
                     }
 
-                    // Dropdown menu
                     DropdownMenu(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }

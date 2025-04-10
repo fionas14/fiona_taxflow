@@ -73,7 +73,7 @@ fun SecondScreen(navController: NavHostController) {
 
     val pekerjaanOptions = listOf("Pegawai Tetap", "Non-Pegawai")
     var selectedPekerjaan by remember { mutableStateOf(pekerjaanOptions[0]) }
-    var pekerjanExpanded by remember { mutableStateOf(false) }
+    var pekerjaanExpanded by remember { mutableStateOf(false) }
 
     var penghasilanNeto by remember { mutableDoubleStateOf(0.0) }
     var penghasilanKenaPajak by remember { mutableDoubleStateOf(0.0) }
@@ -106,65 +106,65 @@ fun SecondScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Top
         ) {
 
-            Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = "Mari menghitung Pajak!",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
+        Text(
+            text = "Mari menghitung Pajak!",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
 
-            if (selectOption == null) {
-                Image(
-                    painter = painterResource(id = R.drawable.pajakk),
-                    contentDescription = "Ilustrasi Pajak",
-                    contentScale = ContentScale.Fit,
+        if (selectOption == null) {
+
+        Image(
+            painter = painterResource(id = R.drawable.pajakk),
+            contentDescription = "Ilustrasi Pajak",
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .height(250.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+        )
+
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded }
+        ) {
+
+        TextField(
+            value = stringResource(R.string.pilih_jenis_pajak),
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(stringResource(R.string.jenis_pajak)) },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
                     modifier = Modifier
-                        .height(250.dp)
+                        .menuAnchor()
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
                 )
 
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded }
-                ) {
-                    TextField(
-                        value = stringResource(R.string.pilih_jenis_pajak),
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text(stringResource(R.string.jenis_pajak)) },
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(expanded)
-                        },
-                        modifier = Modifier
-                            .menuAnchor()
-                            .fillMaxWidth()
-                    )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            options.forEach { item ->
+        DropdownMenuItem(
+            text = { Text(item) },
+            onClick = {
+                selectOption = item
+                expanded = false
+            }
+        ) }
+    }
+}
 
-                    ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        options.forEach { item ->
-                            DropdownMenuItem(
-                                text = { Text(item) },
-                                onClick = {
-                                    selectOption = item
-                                    expanded = false
-                                }
-                            )
-                        }
-                    }
-                }
+        Spacer(modifier = Modifier.height(16.dp))
 
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    onClick = {
-                        navController.popBackStack()
-                    },
+            Button(
+                onClick = {
+                    navController.popBackStack()
+                },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))// Hijau
                 ) {
@@ -172,147 +172,145 @@ fun SecondScreen(navController: NavHostController) {
                 }
                 }else if (selectOption == "PPN") {
 
-                Text("Masukkan harga", fontWeight = FontWeight.SemiBold)
-                OutlinedTextField(
-                     value = inputHarga,
-                     onValueChange = { inputHarga = it },
-                      label = { Text(stringResource(R.string.harga)) },
-                      modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+        Text("Masukkan harga", fontWeight = FontWeight.SemiBold)
 
-                Text("Pilih Persentase PPN", fontWeight = FontWeight.Bold)
-                listOf("11%", "10%" , "Lainnya").forEach { persen ->
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = selectedPPN == persen,
-                            onClick = { selectedPPN = persen }
-                        )
+             OutlinedTextField(
+                 value = inputHarga,
+                 onValueChange = { inputHarga = it },
+                 label = { Text(stringResource(R.string.harga)) },
+                 modifier = Modifier.fillMaxWidth()
+             )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+         Text("Pilih Persentase PPN", fontWeight = FontWeight.Bold)
+            listOf("11%", "10%" , "Lainnya").forEach { persen ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = selectedPPN == persen,
+                        onClick = { selectedPPN = persen }
+                    )
                         Text(text = persen)
                     }
 
                 }
 
-                if (selectedPPN == "Lainnya") {
-                    OutlinedTextField(
-                        value = ppnLainnya,
-                        onValueChange = { ppnLainnya = it },
-                        label = { Text(stringResource(R.string.pilih_persentase_ppn))},
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+         if (selectedPPN == "Lainnya") {
+             OutlinedTextField(
+                 value = ppnLainnya,
+                 onValueChange = { ppnLainnya = it },
+                 label = { Text(stringResource(R.string.pilih_persentase_ppn))},
+                 modifier = Modifier.fillMaxWidth()
+             )
+         }
 
-                Spacer(modifier = Modifier.height(24.dp))
+         Spacer(modifier = Modifier.height(24.dp))
 
-                Button(
-                    onClick = {
-                        val harga = inputHarga.toDoubleOrNull() ?: 0.0
-                        val persentase = when (selectedPPN) {
-                            "11%" -> 11.0
-                            "10%" -> 10.0
-                            "Lainnya" -> {
-                                val inputPersen = ppnLainnya.toDoubleOrNull()
-                                if (inputPersen == null || inputPersen < 0) {
-                                    totalPPN = 0.0
-                                    hitung = true
-                                    return@Button
-                                } else {
-                                    inputPersen
-                                }
-                            }
-                            else -> 0.0
-                        }
+         Button(
+             onClick = {
+                 val harga = inputHarga.toDoubleOrNull() ?: 0.0
+                 val persentase = when (selectedPPN) {
+                     "11%" -> 11.0
+                     "10%" -> 10.0
+                     "Lainnya" -> {
+                 val inputPersen = ppnLainnya.toDoubleOrNull()
+                      if (inputPersen == null || inputPersen < 0) {
+                          totalPPN = 0.0
+                          hitung = true
+                          return@Button
+                      } else {
+                       inputPersen
+                      }
+                 }
+                     else -> 0.0
+                     }
                         totalPPN = harga * (persentase / 100)
                         hitung = true
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))
                 ) {
-                    Text(stringResource(R.string.hitung))
+         Text(stringResource(R.string.hitung))
                 }
 
-                    Button(
-                        onClick = {
-                            selectOption = null
-                            hitung = false
-                        },
+         Button(
+             onClick = {
+                 selectOption = null
+                 hitung = false },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))// Hijau
                     ) {
                         Text(stringResource(R.string.kembali), color = Color.White)
                     }
 
-                if(hitung) {
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text( stringResource(R.string.total_ppn, totalPPN.toInt()))
-                }
+         if(hitung) {
 
+         Spacer(modifier = Modifier.height(16.dp))
+         Text( stringResource(R.string.total_ppn, totalPPN.toInt()))
+         }
+         } else {
 
-            } else {
+          if (selectOption == "PPh") {
 
-                if (selectOption == "PPh") {
+              OutlinedTextField(
+                  value = jumlahTanggungan,
+                  onValueChange = { jumlahTanggungan = it },
+                  label = { Text(stringResource(R.string.jumlah_tanggungan)) },
+                  modifier = Modifier.fillMaxWidth()
+              )
 
-                    OutlinedTextField(
-                        value = jumlahTanggungan,
-                        onValueChange = { jumlahTanggungan = it },
-                        label = { Text(stringResource(R.string.jumlah_tanggungan)) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+              OutlinedTextField(
+                  value = totalPenghasilan,
+                  onValueChange = { totalPenghasilan = it },
+                  label = { Text(stringResource(R.string.total_penghasilan)) },
+                  modifier = Modifier.fillMaxWidth()
+              )
 
-                    OutlinedTextField(
-                        value = totalPenghasilan,
-                        onValueChange = { totalPenghasilan = it },
-                        label = { Text(stringResource(R.string.total_penghasilan)) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+              OutlinedTextField(
+                  value = iuranJHT,
+                  onValueChange = { iuranJHT = it },
+                  label = { Text(stringResource(R.string.iuran_jht)) },
+                  modifier = Modifier.fillMaxWidth()
+              )
 
-                    OutlinedTextField(
-                        value = iuranJHT,
-                        onValueChange = { iuranJHT = it },
-                        label = { Text(stringResource(R.string.iuran_jht)) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+              OutlinedTextField(
+                  value = iuranBPJS,
+                  onValueChange = { iuranBPJS = it },
+                  label = { Text(stringResource(R.string.iuran_bpjs)) },
+                  modifier = Modifier.fillMaxWidth()
+              )
+              OutlinedTextField(
+                  value = iuranZakat,
+                  onValueChange = { iuranZakat = it },
+                  label = { Text(stringResource(R.string.iuran_zakat)) },
+                  modifier = Modifier.fillMaxWidth()
+              )
 
-                    OutlinedTextField(
-                        value = iuranBPJS,
-                        onValueChange = { iuranBPJS = it },
-                        label = { Text(stringResource(R.string.iuran_bpjs)) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+          Text("Status", fontWeight = FontWeight.Bold)
 
-                    OutlinedTextField(
-                        value = iuranZakat,
-                        onValueChange = { iuranZakat = it },
-                        label = { Text(stringResource(R.string.iuran_zakat)) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Text("Status", fontWeight = FontWeight.Bold)
-
-                    ExposedDropdownMenuBox(
-                        expanded = pekerjanExpanded,
-                        onExpandedChange = { pekerjanExpanded = !pekerjanExpanded }
-                    ) {
-                        TextField(
-                            value = selectedPekerjaan,
-                            onValueChange = {},
-                            readOnly = true,
-                            label = { Text(stringResource(R.string.pilih_pekerjaan)) },
-                            trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(pekerjanExpanded)
-                            },
+              ExposedDropdownMenuBox(
+                  expanded = pekerjaanExpanded,
+                  onExpandedChange = { pekerjaanExpanded = !pekerjaanExpanded }
+              ) {
+              TextField(
+                  value = selectedPekerjaan,
+                  onValueChange = {},
+                  readOnly = true,
+                  label = { Text(stringResource(R.string.pilih_pekerjaan)) },
+                  trailingIcon = {
+                      ExposedDropdownMenuDefaults.TrailingIcon(pekerjaanExpanded) },
                             modifier = Modifier.menuAnchor().fillMaxWidth()
-                        )
-                        ExposedDropdownMenu(
-                            expanded = pekerjanExpanded,
-                            onDismissRequest = { pekerjanExpanded = false }
-                        ) {
-                            pekerjaanOptions.forEach { option ->
-                                DropdownMenuItem(
-                                    text = { Text(option) },
-                                    onClick = {
-                                        selectedPekerjaan = option
-                                        pekerjanExpanded = false
+              )
+              ExposedDropdownMenu(
+                  expanded = pekerjaanExpanded,
+                  onDismissRequest = { pekerjaanExpanded = false }
+              ) {
+                  pekerjaanOptions.forEach { option ->
+                      DropdownMenuItem(
+                          text = { Text(option) },
+                          onClick = {
+                              selectedPekerjaan = option
+                              pekerjaanExpanded = false
                                     }
                                 )
                             }
@@ -322,81 +320,80 @@ fun SecondScreen(navController: NavHostController) {
                 }
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Button(
-                        onClick = {
-                            val penghasilan = totalPenghasilan.toDoubleOrNull() ?: 0.0
-                            val jht = iuranJHT.toDoubleOrNull() ?: 0.0
-                            val bpjs = iuranBPJS.toDoubleOrNull() ?: 0.0
-                            val zakat = iuranZakat.toDoubleOrNull() ?: 0.0
-                            val totalPotongan = jht + bpjs + zakat
+          Button(
+              onClick = {
+                  val penghasilan = totalPenghasilan.toDoubleOrNull() ?: 0.0
+                  val jht = iuranJHT.toDoubleOrNull() ?: 0.0
+                  val bpjs = iuranBPJS.toDoubleOrNull() ?: 0.0
+                  val zakat = iuranZakat.toDoubleOrNull() ?: 0.0
+                  val totalPotongan = jht + bpjs + zakat
 
-                            val biayaJabatan = if (selectedPekerjaan == "Pegawai Tetap") {
-                                minOf(penghasilan * 0.005, 6_000_000.0)
-                            } else 0.0
+                  val biayaJabatan = if (selectedPekerjaan == "Pegawai Tetap") {
+                      minOf(penghasilan * 0.005, 6_000_000.0)
+                  } else 0.0
 
-                            penghasilanNeto = if (selectedPekerjaan == "Pegawai Tetap") {
-                                penghasilan - biayaJabatan - totalPotongan
-                            } else {
-                                penghasilan * 0.5 - totalPotongan
+                  penghasilanNeto =
+                      if (selectedPekerjaan == "Pegawai Tetap") {
+                  penghasilan - biayaJabatan - totalPotongan
+                  } else {
+                      penghasilan * 0.5 - totalPotongan
                             }
 
-                            val jumlahTanggunganInt =
-                                jumlahTanggungan.toIntOrNull()?.coerceAtMost(3) ?: 0
-                            val ptkp = 54_000_000 + (jumlahTanggunganInt * 4_500_000)
-                            val pkp = (penghasilanNeto - ptkp).coerceAtLeast(0.0)
+                  val jumlahTanggunganInt = jumlahTanggungan.toIntOrNull()?.coerceAtMost(3) ?: 0
+                  val ptkp = 54_000_000 + (jumlahTanggunganInt * 4_500_000)
+                  val pkp = (penghasilanNeto - ptkp).coerceAtLeast(0.0)
 
-                            penghasilanKenaPajak = pkp
-                            pajak = hitungPPh(pkp)
-                            hitung = true
-
-                        },
+                  penghasilanKenaPajak = pkp
+                  pajak = hitungPPh(pkp)
+                  hitung = true },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))
 
                     ) {
-                        Text(stringResource(R.string.hitung))
+         Text(stringResource(R.string.hitung))
                     }
 
-                    Spacer(modifier = Modifier.height(10.dp))
+         Spacer(modifier = Modifier.height(10.dp))
 
-                    if (hitung) {
-                        Text(stringResource(R.string.penghasilan_neto, penghasilanNeto.toInt()))
-                        Text(stringResource(R.string.penghasilan_kena_pajak, penghasilanKenaPajak.toInt()))
-                        Text(stringResource(R.string.pajak, pajak.toInt()))
+         if (hitung) {
+             Text(stringResource(R.string.penghasilan_neto, penghasilanNeto.toInt()))
+             Text(stringResource(R.string.penghasilan_kena_pajak, penghasilanKenaPajak.toInt()))
+             Text(stringResource(R.string.pajak, pajak.toInt()))
 
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
+         Spacer(modifier = Modifier.height(8.dp))
+         }
 
-                    Button(
-                        onClick = {
-                            jumlahTanggungan = ""
-                            totalPenghasilan = ""
-                            iuranJHT =""
-                            iuranBPJS = ""
-                            iuranZakat = ""
-                            selectedPekerjaan = pekerjaanOptions[0]
-                            penghasilanNeto = 0.0
-                            penghasilanKenaPajak = 0.0
-                            pajak = 0.0
-                            hitung = false
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))
-                    ) {
-                        Text(stringResource(R.string.reset))
-                    }
+         Button(
+             onClick = {
+                 jumlahTanggungan = ""
+                 totalPenghasilan = ""
+                 iuranJHT =""
+                 iuranBPJS = ""
+                 iuranZakat = ""
+                 selectedPekerjaan = pekerjaanOptions[0]
+                 penghasilanNeto = 0.0
+                 penghasilanKenaPajak = 0.0
+                 pajak = 0.0
+                 hitung = false
+         },
+             modifier = Modifier.fillMaxWidth(),
+             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))
+         ) {
 
-                    Spacer(modifier = Modifier.height(16.dp))
+         Text(stringResource(R.string.reset))
+         }
 
-                    Button(
-                        onClick = {
-                            selectOption = null
-                            hitung = false
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))// Hijau
-                    ) {
-                        Text(stringResource(R.string.kembali), color = Color.White)
+         Spacer(modifier = Modifier.height(16.dp))
+
+         Button(
+              onClick = {
+                  selectOption = null
+                  hitung = false },
+             modifier = Modifier.fillMaxWidth(),
+             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90))// Hijau
+         ) {
+
+         Text(stringResource(R.string.kembali), color = Color.White)
                     }
                 }
             }
