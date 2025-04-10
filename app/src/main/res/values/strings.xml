@@ -18,7 +18,7 @@
     <string name="pilih_pekerjaan">Pilih Pekerjaan</string>
 
     <string name="penghasilan_neto">Penghasilan Neto: Rp %1$d</string>
-    <string name="penghasilan_kena_pajak">Penghasilan Keena Pajak: Rp %1$d</string>
+    <string name="penghasilan_kena_pajak">Penghasilan Kena Pajak: Rp %1$d</string>
     <string name="pajak">Pajak: Rp %1$d</string>
 
     <string name="tentang_aplikasi">Tentang Aplikasi</string>

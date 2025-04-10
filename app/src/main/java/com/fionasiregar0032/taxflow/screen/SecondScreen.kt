@@ -116,10 +116,6 @@ fun SecondScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp))
                 )
-            }
-        }
-
-            if (selectOption == null) {
 
                 ExposedDropdownMenuBox(
                     expanded = expanded,
@@ -311,7 +307,9 @@ fun SecondScreen(navController: NavHostController) {
                                 )
                             }
                         }
+
                     }
+                }
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Button(
